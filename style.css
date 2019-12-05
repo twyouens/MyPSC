@@ -1,0 +1,48 @@
+body.body{
+background: #3066BC;
+font-family: "Arial", sans-serif;
+text-decoration: none;
+margin: 0%;
+}
+body.login{
+background: #3066BC;
+font-family: "Arial", sans-serif;
+text-decoration: none;
+}
+div.login{
+	display: block;
+	height: 400px;
+	width: 600px;
+	position: relative;
+	margin: auto;
+	top: 20%;
+	border-radius: 12px;
+	border: 1px solid black;
+	background: #E8E8E8;
+	text-decoration: none;
+	text-align: center;
+}
+button.login{
+    border: 0;
+    color: black;
+    padding: 5px 17px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 12px;
+    display: inline-block;
+    background: #fff;
+    line-height: 1.5;
+    vertical-align: middle;
+	text-decoration: none !important;
+	position: relative;
+	top:50%
+}
+table.table{
+font-family: "Arial", sans-serif;
+background-color: #E8E8E8;
+border: 2px solid black;
+}
+h1.pagetitle{
+font-family: "Arial", sans-serif;
+text-align: center;
+}

@@ -1,0 +1,32 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+	<title>PSC Authorise</title>
+	<script src="https://data.psc.ac.uk/js/psc.js"></script>
+
+        <script type="text/javascript">
+            var clientId = '132_t798rfy7n0gw08004soc8gg40k4c8oogw8kcg0cwskgwocc0k';
+            // Check for an access token
+            function checkAuth() {
+                psc.auth.authorise({clientId:clientId},'handleAuthResult');
+            }
+            function handleAuthResult(authResult) {
+                var authoriseButton = document.getElementById('authorise-button');
+                if (authResult && !authResult.error) {
+                	window.location.replace("index.php");
+                  authoriseButton.style.visibility = 'hidden';
+                } else {
+                  console.log(authResult.message);
+                  authoriseButton.style.visibility = '';
+                  authoriseButton.onclick = checkAuth;
+                }
+            }
+</script>
+
+</head>
+<body onload="checkAuth()" class="login">
+<div class="login">
+<button class="login" id="authorise-button" style="visibility: hidden">Log in</button>
+</div>
+</body>
+</html>
