@@ -64,7 +64,7 @@
           <p class="lead">Welcome to the Peter Symonds College MyPSC. This service is currently for students to access functions from the main Intranet.</p>
           <hr class="my-4">
           <p>If you need help or something doesn’t work please contact me.</p>
-          <a href="mailto:tyouens19@students.psc.ac.uk"><button class="btn btn-primary btn-lg">Contact</button></a> 
+          <a href="mailto:confidentiality@students.psc.ac.uk"><button class="btn btn-primary btn-lg">Contact</button></a> 
         </div>
     </div>
   </div>
