@@ -1,5 +1,5 @@
 <?php
-
+require_once('resources/autoload.php');
 ?>
 <!doctype html>
 <html lang="en">
@@ -30,25 +30,26 @@
     </ul>
     <ul class="navbar-nav">
     <li class="nav-item active">
-        <a class="nav-link" href="/">Home</a>
+        <a class="nav-link" href="">Home</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="timetable/">Timetable</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="my-details/">My Details</a>
+        <a class="nav-link" href="my-details">My Details</a>
       </li>  
       <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle mr-sm-2" href="#" id="navbardrop" data-toggle="dropdown">Tools</a>
       <div class="dropdown-menu dropdown-menu-right">
-        <a class="dropdown-item" href="tools/free-room/" target="_blank">Free Room</a>
-        <a class="dropdown-item" href="tools/room-timetable/" target="_blank">Room Timetable</a>
-        <a class="dropdown-item" href="tools/trains/">Train Times</a>
+        <a class="dropdown-item" href="tools/free-room" target="_blank">Free Room</a>
+        <a class="dropdown-item" href="tools/room-timetable" target="_blank">Room Timetable</a>
+        <a class="dropdown-item" href="tools/trains">Train Times</a>
       </div>
     </li> 
     <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle mr-sm-2" href="#" id="navbardrop" data-toggle="dropdown"><div class="accountcircle"><?php $inital1 = $user_firstname[0]; $inital2 = $user_lastname[0]; echo "$inital1$inital2"?>AL</div></a>
+      <a class="nav-link dropdown-toggle mr-sm-2" href="#" id="navbardrop" data-toggle="dropdown"><div class="accountcircle"><?php $inital1 = $user_fname[0]; $inital2 = $user_lname[0]; echo "$inital1$inital2"?></div></a>
       <div class="dropdown-menu dropdown-menu-right">
+        <a class="dropdown-item" href="https://admin.psc.knoyletechnologies.co.uk/"><i class="fas fa-tools"></i> Admin</a>
         <a class="dropdown-item" href="?logout=true"><i class="fas fa-sign-out-alt"></i> Logout</a>
       </div>
     </li>    
@@ -58,13 +59,13 @@
 
 <div class="container">
   <div class="row body-container-page">
-      <div class="col col-sm-12">
+      <div class="col-sm-12">
         <div class="jumbotron">
           <h1 class="display-4 font-title">Welcome!</h1>
           <p class="lead">Welcome to the Peter Symonds College MyPSC. This service is currently for students to access functions from the main Intranet.</p>
           <hr class="my-4">
           <p>If you need help or something doesn’t work please contact me.</p>
-          <a href="mailto:confidentiality@students.psc.ac.uk"><button class="btn btn-primary btn-lg">Contact</button></a> 
+          <a href="mailto:tyouens19@students.psc.ac.uk"><button class="btn btn-primary btn-lg">Contact</button></a> 
         </div>
     </div>
   </div>
@@ -73,10 +74,21 @@
       <div class="col-sm-4 mycard shadow-sm">
          <h3 class="font-title">My Timetable</h3>
          <ul class="no-bullets">
-           <li class="item-today">BTEC Information Technology</li>
-           <li class="item-today">BTEC Information Technology</li>
-           <li class="item-today">A-Level Product Design</a></li>
-           <li class="item-today">A-Level Product Design</li>
+           <?php 
+           $gettimetableToday = PSC_get_Timetable_Today($PSC_Token);
+           $timetablearray = json_decode($gettimetableToday, true);
+           foreach($timetablearray['timetable'] as $table) {
+             if(empty($table)){
+               echo "Nothing is scheduled for you today.";
+             }else{
+             $lesson_title = $table['Title'];
+             $lesson_start = $table['Start'];
+             $lesson_end = $table['End'];
+             $lesson_staff = $table['Staff'];
+            echo "<li class='item-today'>$lesson_title</li>";
+             }
+            }
+           ?>
          </ul>
          <div class="mycardfooter"><a href="timetable/"><i class="fas fa-calendar-alt"></i> <span class="blue">View Full Timetable</span></a></div>
         </div>
@@ -90,7 +102,7 @@
          <ul class="no-bullets">
            <li class="item"><a href="https://intranet.psc.ac.uk/h" class="blue" target="_blank">Student Intranet</a></li>
            <li class="item"><a href="https://classroom.google.com/h" class="blue" target="_blank">Google Classroom</a></li>
-           <li class="item"><a href="https://teams.microsoft.com/" class="blue" target="_blank">Microsoft Teams</a></li>
+           <li class="item"><a href="https://filr.psc.ac.uk/" class="blue" target="_blank">Filr</a></li>
            <li class="item"><a href="https://webmail.psc.ac.uk/" class="blue" target="_blank">College Email <span class="badge badge-pill badge-danger">New</span></a></li>
         </div>
   </div>
@@ -106,12 +118,9 @@
       <div class="col-sm-4 mycard shadow-sm">
          <h3 class="font-title">Going Home</h3>
          <p class="error midgrey"><span class="align-middle">Check back later for recommendations.</span></p>
-         <div class="mycardfooter"><a href="tools/trains/"><i class="fas fa-train"></i> <span class="blue">Open Train Times</span></a></div>
+         <div class="mycardfooter"><a href="tools/trains"><i class="fas fa-train"></i> <span class="blue">Open Train Times</span></a></div>
         </div>
-      <div class="col-sm-4">
-         
-
-        </div>
+        
   </div>
   <div class="row body-container-page">
             <div class="col-sm-3"><br></div>
