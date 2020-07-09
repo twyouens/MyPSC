@@ -1,0 +1,155 @@
+body.body{
+    font-family: "Arial", sans-serif;
+    text-decoration: none;
+    background-color: rgb(247, 247, 247);
+}
+@media (prefers-color-scheme: dark) {
+    body.body{
+        background-color: rgb(46, 46, 46);
+    }
+}
+@media screen and (max-width: 600px) {
+	.container{
+        padding-right: 0px !important;
+        padding-left: 0px !important;
+    }
+}
+a:hover, a:visited, a:link, a:active
+{
+	text-decoration: none;
+	color: black;
+}
+.row{
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}
+.navbar{
+    border-radius: none !important;
+    background-color: #7B93A3 !important;
+    margin-bottom: none !important;
+}
+/*.col{
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}*/
+div.body-container-page{
+    background-color: rgb(255, 255, 255);
+}
+.font-title{
+    font-family: "bebas-kai", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+.white{
+    color: white;
+}
+.blue{
+    color: #0C72D8 !important;
+}
+.darkgrey{
+    color: #2E2E2E;
+}
+.midgrey{
+    color: #5D5D5D;
+}
+div.accountcircle{
+    display: inline;
+    padding-left: 9px;
+    padding-right: 9px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 50%;
+    border: 1px solid white;
+    text-align: center;
+    color: white;
+}
+div.accountcircle-black{
+    display: inline;
+    padding-left: 9px;
+    padding-right: 9px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 50%;
+    border: 1px solid black;
+    text-align: center;
+    color: black;
+}
+.jumbotron {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url("../img/northbrook.jpg");
+    background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+  }
+div.mycard{
+    min-height: 250px;
+}
+.item{
+    padding: .5em 0;
+    margin: 0;
+    border-bottom: 1px solid #dedede;
+}
+.item-today{
+    padding: .2em 0;
+    margin: 0;
+    border-bottom: 1px solid #dedede;
+}
+ul.no-bullets {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+.mycardfooter{
+    bottom: 0px;
+    width: 100%;
+}
+.staff{
+    text-align: center;
+    margin: 0 5px 0 5px;
+}
+.time{
+    text-align: center;
+    margin: 0 5px 0 5px;
+    display: inline-block;
+}
+.room{
+    text-align: center;
+    margin: 0 5px 0 5px;
+}
+.cancelled{
+    text-align: center;
+    margin: 0 5px 0 5px;
+    color: red;
+}
+.lesson{
+    text-align: center;
+background-size: 2px 100%;
+background-repeat: no-repeat;
+border-color: #DEDEDE;
+padding-top: 5px;
+}
+.slot{
+    text-align: center;
+background-size: 2px 100%;
+background-repeat: no-repeat;
+border-color: #DEDEDE;
+padding-top: 5px;
+}
+.timetable{
+    border-width: 0;
+    width: 100%;
+    border-color: #DEDEDE;
+    margin-top: 0;
+}
+.studenticon{
+    width: 140px;
+    text-align: center;
+    margin: auto;
+    position: relative;
+}
+.details-header{
+    text-align: left;
+    font-weight: bold;
+}
+.details-info{
+    text-align: right;
+}
