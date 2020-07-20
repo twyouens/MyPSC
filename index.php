@@ -33,7 +33,7 @@ require_once('resources/autoload.php');
         <a class="nav-link" href="">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="timetable/">Timetable</a>
+        <a class="nav-link" href="timetable">Timetable</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="my-details">My Details</a>
@@ -49,7 +49,7 @@ require_once('resources/autoload.php');
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle mr-sm-2" href="#" id="navbardrop" data-toggle="dropdown"><div class="accountcircle"><?php $inital1 = $user_fname[0]; $inital2 = $user_lname[0]; echo "$inital1$inital2"?></div></a>
       <div class="dropdown-menu dropdown-menu-right">
-        <a class="dropdown-item" href="https://admin.psc.knoyletechnologies.co.uk/"><i class="fas fa-tools"></i> Admin</a>
+        <a class="dropdown-item" href="https://admin.psc.knoyletechnologies.co.uk/" target="_blank"><i class="fas fa-tools"></i> Admin</a>
         <a class="dropdown-item" href="?logout=true"><i class="fas fa-sign-out-alt"></i> Logout</a>
       </div>
     </li>    
@@ -90,7 +90,7 @@ require_once('resources/autoload.php');
             }
            ?>
          </ul>
-         <div class="mycardfooter"><a href="timetable/"><i class="fas fa-calendar-alt"></i> <span class="blue">View Full Timetable</span></a></div>
+         <div class="mycardfooter"><a href="timetable"><i class="fas fa-calendar-alt"></i> <span class="blue">View Full Timetable</span></a></div>
         </div>
         <div class="col-sm-4 mycard shadow-sm">
          <h3 class="font-title">Who's free now?</h3>
