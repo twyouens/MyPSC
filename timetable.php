@@ -18,7 +18,7 @@ require_once('resources/autoload.php');
 </head>
 
 <body class="body">
-<nav class="navbar navbar-expand-md bg-dark navbar-dark navbar">
+<nav <?php echo $styleNavShow?>class="navbar navbar-expand-md bg-dark navbar-dark navbar">
   <a class="navbar-brand" href="../"><img src="../resources/img/psclogo.svg" alt="Logo" style="width:60px;"></a>
   <h1 class="font-title white nav-item">MyPSC</h1>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -68,13 +68,13 @@ require_once('resources/autoload.php');
   </div>
   <div class="row body-container-page">
       <div class="col-sm-12">
-        <p class="darkgrey">This function allows you to see your college timetable for the current week. If you want to see your friends timetables, click the open button at the top.</p>
+        <p>This function allows you to see your college timetable for the current week. If you want to see your friends timetables, click the open button at the top.</p>
       </div>
   </div>
   <div class="row body-container-page">
     <div class="col-sm-12">
     <div class="table-responsive">
-    <table class='table table-striped'>
+    <table class='table table-dark table-striped'>
     <thead>
     <tr>
       <th scope='col'>Start</th>
@@ -94,8 +94,8 @@ require_once('resources/autoload.php');
                echo "Nothing is scheduled for you today.";
              }else{
              $lesson_title = $table['Title'];
-             $lesson_start = $table['Start'];
-             $lesson_end = $table['End'];
+             $lesson_start = date("D G:i",$table['Start']);
+             $lesson_end = date("G:i",$table['End']);
              $lesson_staff = $table['Staff'];
              $lesson_room = $table['Room'];
             echo "<tr>

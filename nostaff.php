@@ -1,18 +1,8 @@
-<?php 
-if(!isset($_COOKIE['PSCToken'])) {
-     $logged_in = "false";
-     if(isset($_COOKIE['SeamlessSignIn']) && $_COOKIE['SeamlessSignIn'] == "enabled"){
-        header('location: resources/data/psc-auth');
-     }
-} else {
-     $logged_in = "true";
-}
-?>
 <!doctype html>
 <html lang="en">
 
 <head>
-<title>MyPSC - Login</title>
+<title>MyPSC - No Staff</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -33,12 +23,10 @@ if(!isset($_COOKIE['PSCToken'])) {
 <div class="container">
     <div class="row body-container-page">
         <div class="col col-sm-12 mycard shadow-sm">
-            <?php if($logged_in == "false"){
-                echo "<h2 class='font-title'>Log in</h2><p>Welcome, MyPSC now requires you to Log in to use the service. To do this, you need to click the button below. This will redirect you to the Peter Symonds College Data service, where you need to login with your college username and password. You will also be asked to agree to sharing your data with MyPSC.</p><div><a href='resources/data/psc-auth'><button type='button' class='btn btn-primary btn-lg btn-block'>Log in</button></a></div>";
-            }else{
-                echo "<h2 class='font-title'>Log in</h2><p>Welcome, You are already logged in to MyPSC. To back home, press the button bellow.</p><div><a href='/'><button type='button' class='btn btn-primary btn-lg btn-block'>Home</button></a></div>";
-            }
-            ?>
+        <h2 class='font-title'>No Staff</h2>
+        <p>Hi there, The account you used to sign in with is reported as a staff account and unfortunately MyPSC does not currently support staff members to use this service.</p>
+        <p>If you believe you have been flagged incorrectly and wish to use this service, please contact IT Services on the Helpdesk.</p>
+        <div><img src="resources/img/nostaff.svg" style="width: 100px; margin:auto"></div>
         </div>
     </div>
 

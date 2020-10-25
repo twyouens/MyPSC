@@ -1,5 +1,16 @@
 <?php
 require_once('resources/autoload.php');
+if($KT_user_exists == true){
+  $friends_message = "<p class='error midgrey'><span class='align-middle'>No friends could be found :(</span></p>";
+  $transport_message = "<p class='error midgrey'><span class='align-middle'>Check back later for recommendations.</span></p>";
+}else{
+  $friends_message = "<p class='error midgrey'><span class='align-middle'>Data sharing is not turned on. Go to My Details to get started.</span></p>";
+  $transport_message = "<p class='error midgrey'><span class='align-middle'>Data sharing is not turned on. Go to My Details to get started.</span></p>";
+}
+
+if($KT_user_verified == "true"){
+  $show_feedback = "true";
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -18,7 +29,7 @@ require_once('resources/autoload.php');
 </head>
 
 <body class="body">
-<nav class="navbar navbar-expand-md bg-dark navbar-dark navbar">
+<nav <?php echo $styleNavShow?>class="navbar navbar-expand-md bg-dark navbar-dark navbar">
   <a class="navbar-brand" href=""><img src="resources/img/psclogo.svg" alt="Logo" style="width:60px;"></a>
   <h1 class="font-title white nav-item">MyPSC</h1>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -41,15 +52,15 @@ require_once('resources/autoload.php');
       <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle mr-sm-2" href="#" id="navbardrop" data-toggle="dropdown">Tools</a>
       <div class="dropdown-menu dropdown-menu-right">
-        <a class="dropdown-item" href="tools/free-room" target="_blank">Free Room</a>
-        <a class="dropdown-item" href="tools/room-timetable" target="_blank">Room Timetable</a>
+        <a class="dropdown-item" href="tools/free-room">Free Room</a>
+        <a class="dropdown-item" href="tools/room-timetable">Room Timetable</a>
         <a class="dropdown-item" href="tools/trains">Train Times</a>
       </div>
     </li> 
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle mr-sm-2" href="#" id="navbardrop" data-toggle="dropdown"><div class="accountcircle"><?php $inital1 = $user_fname[0]; $inital2 = $user_lname[0]; echo "$inital1$inital2"?></div></a>
       <div class="dropdown-menu dropdown-menu-right">
-        <a class="dropdown-item" href="https://admin.psc.knoyletechnologies.co.uk/" target="_blank"><i class="fas fa-tools"></i> Admin</a>
+        <?php if(KT_show_admin() == "true"){echo "<a class='dropdown-item' href='https://admin.psc.knoyletechnologies.co.uk/' target='_blank'><i class='fas fa-tools'></i> Admin</a>";}?>
         <a class="dropdown-item" href="?logout=true"><i class="fas fa-sign-out-alt"></i> Logout</a>
       </div>
     </li>    
@@ -61,11 +72,11 @@ require_once('resources/autoload.php');
   <div class="row body-container-page">
       <div class="col-sm-12">
         <div class="jumbotron">
-          <h1 class="display-4 font-title">Welcome!</h1>
-          <p class="lead">Welcome to the Peter Symonds College MyPSC. This service is currently for students to access functions from the main Intranet.</p>
-          <hr class="my-4">
-          <p>If you need help or something doesn’t work please contact me.</p>
-          <a><button class="btn btn-primary btn-lg">Contact</button></a> 
+          <h1 class="display-4 font-title darkgrey">Welcome!</h1>
+          <p class="lead darkgrey">Welcome to the Peter Symonds College MyPSC. This service is currently for students to access functions from the main Intranet.</p>
+          <hr class="my-4 darkgrey">
+          <p class=" darkgrey">If you need help or something doesn’t work please contact me.</p>
+          <a href="mailto:mypsc@knoyletechnologies.co.uk"><button class="btn btn-primary btn-lg">Contact</button></a> 
         </div>
     </div>
   </div>
@@ -79,13 +90,15 @@ require_once('resources/autoload.php');
            $timetablearray = json_decode($gettimetableToday, true);
            foreach($timetablearray['timetable'] as $table) {
              if(empty($table)){
-               echo "Nothing is scheduled for you today.";
              }else{
-             $lesson_title = $table['Title'];
-             $lesson_start = $table['Start'];
+             $lesson_title = formatLessonName($table['Title']);
+             if(empty($lesson_title)){
+              echo "Woohoo! Nothing is scheduled for you today.";
+             }
+             $lesson_start = date("G:i",$table['Start']);
              $lesson_end = $table['End'];
              $lesson_staff = $table['Staff'];
-            echo "<li class='item-today'>$lesson_title</li>";
+            echo "<li class='item-today'>$lesson_start:  $lesson_title</li>";
              }
             }
            ?>
@@ -94,8 +107,8 @@ require_once('resources/autoload.php');
         </div>
         <div class="col-sm-4 mycard shadow-sm">
          <h3 class="font-title">Who's free now?</h3>
-         <p class="error midgrey"><span class="align-middle">No friends could be found :(</span></p>
-         <div class="mycardfooter"><a href="timetable/friends/"><i class="fas fa-user-friends"></i> <span class="blue">View Friends</span></a></div>
+         <?php echo $friends_message?>
+         <div class="mycardfooter"><a href="timetable-friends"><i class="fas fa-user-friends"></i> <span class="blue">View Friends</span></a></div>
         </div>
       <div class="col-sm-4 mycard shadow-sm">
          <h3 class="font-title">Useful links</h3>
@@ -117,16 +130,89 @@ require_once('resources/autoload.php');
         </div>
       <div class="col-sm-4 mycard shadow-sm">
          <h3 class="font-title">Going Home</h3>
-         <p class="error midgrey"><span class="align-middle">Check back later for recommendations.</span></p>
+         <?php echo $transport_message?>
          <div class="mycardfooter"><a href="tools/trains"><i class="fas fa-train"></i> <span class="blue">Open Train Times</span></a></div>
         </div>
+        <?php
+        if($show_navbar == "false"){
+
+        }else{
+          echo "<div class='col-sm-4 mycard shadow-sm'>
+          <h3 class='font-title'>MyPSC App <span class='badge badge-pill badge-danger'>New</span></h3>
+          <p>MyPSC now has a app for your phone. It is currently in BETA development, but allows you to access MyPSC right of your home screen. To get it, please go to the link bellow and sign-up for the BETA. [Currently only avaliable for iOS users.]</p>
+          <div class='mycardfooter'><a href='app'><span class='blue'>Get App</span></a></div>
+         </div>";
+        }
+        ?>
         
   </div>
   <div class="row body-container-page">
-            <div class="col-sm-3"><br></div>
+            <?php
+        if($show_feedback == "true"){
+          if(KT_allow_feedback() == "true"){
+            echo "
+            <div class='col-sm-4 shadow-sm mycard'>
+          <h3 class='font-title'>MyPSC Feedback</h3>
+          <p>Thank you for using MyPSC, if you have some feedback for the development team, please press the button below and leave some feedback.</p>
+          <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#submitFeedback'>Leave Feedback</button>
+         </div>";
+          }else{
+            echo "<div class='col-sm-4 shadow-sm'><br></div>";
+          }
+        }else{
+          echo "<div class='col-sm-4 shadow-sm'><br></div>";
+        }
+        if($KT_user_verified == "true"){
+          echo "
+            <div class='col-sm-4 shadow-sm mycard'>
+          <h3 class='font-title'>MyPSC Development</h3>
+          <p>MyPSC isn't perfect, we would like you to know the known issues/ bugs that we are working on. You can view these by clicking the button bellow.</p>
+          <button type='button' class='btn btn-primary' data-toggle='modal' data-open='devNotes' data-target='#currentIssues'>Current Issues</button>
+         </div>";
+        }
+        ?>
         </div>
 
 </div>
+<?php 
+if($show_feedback == "true"){
+  echo "
+  <div class='modal fade' id='submitFeedback' tabindex='-1' role='dialog' aria-labelledby='submitFeedback' aria-hidden='true'>
+  <div class='modal-dialog' role='document'>
+    <div class='modal-content'>
+      <div class='modal-header'>
+        <h5 class='modal-title darkgrey' id='submitFeedback'>Submit Feedback:</h5>
+        <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+          <span aria-hidden='true'>&times;</span>
+        </button>
+      </div>
+      <div class='modal-body'>
+        <p class='darkgrey'>To leave feedback, please enter the page/function that you are using and then describe the issue/ comment in the description field. Thank you!</p>
+        <p class='darkgrey'>NOTE: We may not get back to you, but your request has been logged.</p>
+        <form method='POST' action='resources/data/process-feedback'>
+        <input type='hidden' name='p' value='add'>
+          <div class='form-group'>
+            <label for='page' class='col-form-label darkgrey'>Page/ Function:</label>
+            <input type='text' class='form-control' id='page' name='page'>
+          </div>
+          <div class='form-group'>
+            <label for='description' class='col-form-label darkgrey'>Description:</label>
+            <textarea class='form-control' id='description' rows='3' name='description'></textarea>
+          </div>
+      </div>
+      <div class='modal-footer'>
+        <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancel</button>
+        <button type='submit' class='btn btn-primary'>Submit Feedback</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+  ";
+}else{
 
+}
+
+?>
 </body>
 </html>
