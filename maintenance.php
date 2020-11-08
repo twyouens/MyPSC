@@ -1,25 +1,8 @@
-<?php 
-if(!isset($_COOKIE['PSCToken'])) {
-     $logged_in = "false";
-     $ruri = $_GET['ruri'];
-     if(isset($_COOKIE['SeamlessSignIn']) && $_COOKIE['SeamlessSignIn'] == "enabled"){
-        if(isset($_COOKIE['PSCRefresh'])){
-            header("location: resources/data/psc-auth?process=refresh&ruri=$ruri");
-        }else{
-            header("location: resources/data/psc-auth?ruri=$ruri");
-        }
-     }else{
-        
-     }
-} else {
-     $logged_in = "true";
-}
-?>
 <!doctype html>
 <html lang="en">
 
 <head>
-<title>MyPSC - Login</title>
+<title>MyPSC - Maintenance</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -40,12 +23,9 @@ if(!isset($_COOKIE['PSCToken'])) {
 <div class="container">
     <div class="row body-container-page">
         <div class="col col-sm-12 mycard shadow-sm">
-            <?php if($logged_in == "false"){
-                echo "<h2 class='font-title'>Log in</h2><p>Welcome, MyPSC now requires you to Log in to use the service. To do this, you need to click the button below. This will redirect you to the Peter Symonds College Data service, where you need to login with your college username and password. You will also be asked to agree to sharing your data with MyPSC.</p><div><a href='resources/data/psc-auth?ruri=$ruri'><button type='button' class='btn btn-primary btn-lg btn-block'>Log in</button></a></div>";
-            }else{
-                echo "<h2 class='font-title'>Log in</h2><p>Welcome, You are already logged in to MyPSC. To back home, press the button bellow.</p><div><a href='/'><button type='button' class='btn btn-primary btn-lg btn-block'>Home</button></a></div>";
-            }
-            ?>
+        <h2 class='font-title'>Under Maintenance</h2>
+        <p>Sorry, we are currently taking out essential maintenance to MyPSC, at this time you will not be able to use MyPSC. We hope to have it back up and running soon. We are sorry for any inconvenience this may cause.</p>
+        <p>Looking for your timetable? Please go to this link to open your timetable: <a href="https://intranet.psc.ac.uk/timetable" class="blue">Click here</a></p>
         </div>
     </div>
 

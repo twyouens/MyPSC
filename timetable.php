@@ -74,7 +74,7 @@ require_once('resources/autoload.php');
   <div class="row body-container-page">
     <div class="col-sm-12">
     <div class="table-responsive">
-    <table class='table table-dark table-striped'>
+    <table class='table table-color-auto table-striped'>
     <thead>
     <tr>
       <th scope='col'>Start</th>

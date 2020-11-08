@@ -22,9 +22,10 @@ if($KT_user_verified == "true"){
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 <link rel="stylesheet" href="resources/css/app.css">
 <link rel="stylesheet" href="https://use.typekit.net/vfa7odm.css">
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script src="/resources/scripts/ajax.js" crossorigin="anonymous"></script>
 <script src="https://kit.fontawesome.com/d30a3a9e8d.js" crossorigin="anonymous"></script>
 </head>
 
@@ -88,19 +89,21 @@ if($KT_user_verified == "true"){
            <?php 
            $gettimetableToday = PSC_get_Timetable_Today($PSC_Token);
            $timetablearray = json_decode($gettimetableToday, true);
-           foreach($timetablearray['timetable'] as $table) {
-             if(empty($table)){
-             }else{
-             $lesson_title = formatLessonName($table['Title']);
-             if(empty($lesson_title)){
-              echo "Woohoo! Nothing is scheduled for you today.";
+           $lessons = $timetablearray['timetable'];
+           if(empty($lessons)){
+            echo "<p>Woohoo! Nothing is scheduled for you today.</p>";
+           }else{
+            foreach($lessons as $table) {
+              if(empty($table)){
+              }else{
+              $lesson_title = formatLessonName($table['Title']);
+              $lesson_start = date("G:i",$table['Start']);
+              $lesson_end = $table['End'];
+              $lesson_staff = $table['Staff'];
+             echo "<li class='item-today'>$lesson_start:  $lesson_title</li>";
+              }
              }
-             $lesson_start = date("G:i",$table['Start']);
-             $lesson_end = $table['End'];
-             $lesson_staff = $table['Staff'];
-            echo "<li class='item-today'>$lesson_start:  $lesson_title</li>";
-             }
-            }
+           }
            ?>
          </ul>
          <div class="mycardfooter"><a href="timetable"><i class="fas fa-calendar-alt"></i> <span class="blue">View Full Timetable</span></a></div>
@@ -125,8 +128,8 @@ if($KT_user_verified == "true"){
   <div class="row body-container-page">
         <div class="col-sm-4 mycard shadow-sm">
          <h3 class="font-title">Student Notices</h3>
-         <p class="error midgrey"><span class="align-middle">No notices could be found. This will only work on College Wi-Fi.</span></p>
-         <div class="mycardfooter"><a href="https://intranet.psc.ac.uk/news/browser.php"><i class="fas fa-bullhorn"></i> <span class="blue">View All</span></a></div>
+         <p class="error midgrey"><span class="align-middle">No notices could be found. Feature coming soon, please refer to development notes for update.</span></p>
+         <div class="mycardfooter"><a href="https://intranet.psc.ac.uk/news/browser.php"><i class="fas fa-bullhorn"></i> <span class="blue">View on Intranet</span></a></div>
         </div>
       <div class="col-sm-4 mycard shadow-sm">
          <h3 class="font-title">Going Home</h3>
@@ -167,7 +170,7 @@ if($KT_user_verified == "true"){
             <div class='col-sm-4 shadow-sm mycard'>
           <h3 class='font-title'>MyPSC Development</h3>
           <p>MyPSC isn't perfect, we would like you to know the known issues/ bugs that we are working on. You can view these by clicking the button bellow.</p>
-          <button type='button' class='btn btn-primary' data-toggle='modal' data-open='devNotes' data-target='#currentIssues'>Current Issues</button>
+          <button type='button' class='btn btn-primary devnotes' data-toggle='modal' data-target='#notesModal'>Current Issues</button>
          </div>";
         }
         ?>
@@ -213,6 +216,31 @@ if($show_feedback == "true"){
 
 }
 
+if($KT_user_verified == "true"){
+  echo "
+  <div class='modal fade' id='notesModal' tabindex='-1' role='dialog' aria-labelledby='notesModal' aria-hidden='true'>
+  <div class='modal-dialog' role='document'>
+    <div class='modal-content'>
+      <div class='modal-header'>
+        <h5 class='modal-title darkgrey' id='submitFeedback'>Current Issues:</h5>
+        <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+          <span aria-hidden='true'>&times;</span>
+        </button>
+      </div>
+      <div class='modal-body ajax-dump'>
+        
+      </div>
+      <div class='modal-footer'>
+        <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancel</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+  ";
+}else{
+
+}
 ?>
 </body>
 </html>
